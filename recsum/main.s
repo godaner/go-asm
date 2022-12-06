@@ -1,5 +1,11 @@
+#include "textflag.h"
+#define FUNCDATA_ArgsPointerMaps 0 /* garbage collector blocks */
+#define FUNCDATA_LocalsPointerMaps 1
+#define FUNCDATA_InlTree 2
 
+#define NO_LOCAL_POINTERS FUNCDATA $FUNCDATA_LocalsPointerMaps, runtime·no_pointers_stackmap(SB)
 TEXT ·RecSum(SB), $16-16
+    NO_LOCAL_POINTERS
     MOVQ ·src+0(FP),AX
     CMPQ AX,$0
     JG REC
