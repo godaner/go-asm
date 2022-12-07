@@ -1,15 +1,15 @@
-TEXT ·Loop(SB), $0-32
+#include "textflag.h"
+TEXT ·Loop(SB),NOSPLIT,$0-32
 	MOVQ ·cnt+0*8(FP),AX
 	MOVQ ·v0+1*8(FP),BX
 	MOVQ ·step+2*8(FP),CX
 	MOVQ $0,DX
 LOOP_IF:
-	CMPQ BX,AX
+	CMPQ DX,AX
 	JL LOOP_BODY
-	MOVQ DX,·r+3*8(FP)
-	RET
+	MOVQ BX,·r+3*8(FP)
+        RET
 LOOP_BODY:
-	ADDQ BX,BX
-	ADDQ CX,DX
+	ADDQ $1,DX
+	ADDQ CX,BX
 	JMP LOOP_IF
-	
